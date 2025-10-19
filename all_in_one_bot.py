@@ -2,7 +2,7 @@ import telebot
 import os
 
 # ====== CONFIGURATION ======
-TOKEN = os.getenv("8289102024:AAEPXj4CSu6wdZdJcBbMtBDc9jr1RoLaCo8")  # from Render Environment Variable
+TOKEN = os.getenv("BOT_TOKEN")  # from Render Environment Variable
 OWNER_CHAT_ID = 8288030589      # <-- replace with your chat ID
 GROUP_ID = -1002759652647       # <-- replace with your group ID
 
@@ -66,3 +66,4 @@ def pin_message(message):
 # ====== RUN ======
 print("🤖 Bot is running...")
 bot.infinity_polling()
+
