@@ -56,23 +56,6 @@ def send_to_group(message):
     except Exception as e:
         bot.send_message(OWNER_CHAT_ID, f"⚠️ Failed to post to group: {e}")
 
-# ====== PIN COMMAND ======
-@bot.message_handler(commands=['pin'])
-def pin_message(message):
-    try:
-        if message.reply_to_message:
-            reply_id = message.reply_to_message.message_id
-            if reply_id in message_map:
-                group_msg_id = message_map[reply_id]
-                bot.pin_chat_message(GROUP_CHAT_ID, group_msg_id)
-                bot.send_message(OWNER_CHAT_ID, "📌 The selected message has been pinned in your group.")
-            else:
-                bot.send_message(OWNER_CHAT_ID, "⚠️ I can’t find that message in the group history.")
-        else:
-            bot.send_message(OWNER_CHAT_ID, "Reply to the message you want to pin, then send /pin.")
-    except Exception as e:
-        bot.send_message(OWNER_CHAT_ID, f"⚠️ Failed to pin message: {e}")
-
 # ====== HEALTH CHECK ENDPOINT ======
 @app.route("/")
 def index():
@@ -91,3 +74,4 @@ if __name__ == "__main__":
     t = threading.Thread(target=run_bot, daemon=True)
     t.start()
     run_flask()
+
