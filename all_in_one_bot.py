@@ -2,30 +2,26 @@ import telebot
 import os
 
 # ====== CONFIGURATION ======
-TOKEN = os.getenv("BOT_TOKEN")  # from Render Environment Variable
-OWNER_CHAT_ID = 8288030589      # <-- replace with your chat ID
-GROUP_ID = -1002759652647       # <-- replace with your group ID
+TOKEN = os.getenv("8289102024:AAEPXj4CSu6wdZdJcBbMtBDc9jr1RoLaCo8")
+OWNER_CHAT_ID = int(os.getenv("8288030589"))
+GROUP_ID = int(os.getenv("-1002759652647"))
 
 bot = telebot.TeleBot(TOKEN)
 last_message_id = None
 
-# ====== START COMMAND ======
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.reply_to(message, "👋 Welcome! Send a screenshot here to submit it.")
 
-# ====== USER SENDS PHOTO (forward to owner) ======
 @bot.message_handler(content_types=['photo'])
 def handle_photo(message):
     try:
-        # Forward photo to owner with user info
         caption = f"📸 Screenshot from {message.from_user.first_name} (ID: {message.from_user.id})"
         bot.send_photo(OWNER_CHAT_ID, message.photo[-1].file_id, caption=caption)
         bot.reply_to(message, "✅ Screenshot received!")
     except Exception as e:
         bot.reply_to(message, f"⚠️ Error sending screenshot: {e}")
 
-# ====== OWNER SENDS TO GROUP (no forwarded tag) ======
 @bot.message_handler(func=lambda m: m.chat.id == OWNER_CHAT_ID,
                      content_types=['text', 'photo', 'video', 'document', 'animation'])
 def send_to_group(message):
@@ -48,7 +44,6 @@ def send_to_group(message):
     except Exception as e:
         bot.send_message(OWNER_CHAT_ID, f"⚠️ Failed to post to group: {e}")
 
-# ====== PIN COMMAND ======
 @bot.message_handler(commands=['pin'])
 def pin_message(message):
     try:
@@ -63,7 +58,5 @@ def pin_message(message):
     except Exception as e:
         bot.reply_to(message, f"⚠️ Failed to pin message: {e}")
 
-# ====== RUN ======
 print("🤖 Bot is running...")
 bot.infinity_polling()
-
