@@ -2,8 +2,8 @@ import telebot
 
 # ===== CONFIG =====
 BOT_TOKEN = "B"     # your bot token from BotFather
-OWNER_CHAT_ID = O            # your personal Telegram chat ID
-GROUP_ID = C             # your group ID (starts with -100)
+OWNER_CHAT_ID = "O"            # your personal Telegram chat ID
+GROUP_ID = "C"             # your group ID (starts with -100)
 # ==================
 
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -38,3 +38,4 @@ def start(message):
 
 print("🤖 Bot is running... Press Ctrl + C to stop.")
 bot.infinity_polling()
+
